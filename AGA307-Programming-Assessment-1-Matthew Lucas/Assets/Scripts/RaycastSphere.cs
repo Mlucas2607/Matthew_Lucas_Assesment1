@@ -38,7 +38,7 @@ public class RaycastSphere : MonoBehaviour
                     sphere.transform.localScale -= new Vector3(0.01f, 0.01f, 0.01f);
 
             }
-            else
+            else if(hit.collider.tag != "Sphere")
             {
                 Debug.DrawRay(gunRay.origin, gunRay.direction * 10, Color.red, 0.125f);
                 sphere.GetComponent<MeshRenderer>().material = matBlue;

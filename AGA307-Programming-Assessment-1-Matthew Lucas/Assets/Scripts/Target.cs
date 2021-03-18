@@ -13,10 +13,8 @@ public class Target : MonoBehaviour
         if (targetHealth <= 0)
         {
             Destroy(this.gameObject);
-            Debug.Log(this.gameObject.name + " has been destroyed");
         }
-        else
-            Debug.Log(this.gameObject.name + " Recieved " + damage + " Damage!");
+  
     }
     
     
