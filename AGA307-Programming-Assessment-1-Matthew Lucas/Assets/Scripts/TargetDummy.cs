@@ -14,10 +14,7 @@ public class TargetDummy : MonoBehaviour
 
     public void Start()
     {
-
-        SetUpEnemy();
         StartCoroutine(Move());
-        
     }
 
     public void TakeDamage(int damage)
@@ -25,11 +22,11 @@ public class TargetDummy : MonoBehaviour
         targetHealth -= damage;
 
         if (targetHealth <= 0)
-            Destroy(this.gameObject);
+            Die();
     }
-    public void SetUpEnemy()
+    public void SetUpEnemy(int difficulty)
     {
-        EnemySizes eSize = (EnemySizes)Random.Range(0, 3);
+        EnemySizes eSize = (EnemySizes)difficulty;
 
         switch (eSize)
         {
@@ -52,6 +49,13 @@ public class TargetDummy : MonoBehaviour
                 dummySpeed = 1;
                 break;
         }
+    }
+
+    public void Die()
+    {
+        Destroy(this.gameObject);
+        GameManager.instance.timer += 5f;
+        GameManager.instance.score += 1;
     }
     IEnumerator Move()
     {

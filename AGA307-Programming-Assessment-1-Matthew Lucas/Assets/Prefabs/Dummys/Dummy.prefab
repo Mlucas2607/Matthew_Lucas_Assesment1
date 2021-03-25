@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8071940657012115289}
   m_Layer: 0
   m_Name: Body
-  m_TagString: Target
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -202,6 +202,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetHealth: 5
   moveDistance: 100
+  dummySpeed: 0
   bodyMesh: {fileID: 8071940657012115289}
   enemyColors:
   - {fileID: 2100000, guid: 2d00c611df29813499b62a16560b5730, type: 2}

@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyManger : MonoBehaviour
+public class EnemyManger : Singleton<EnemyManger>
 {
-    public float timer;
     public GameObject[] enemies;
     public Transform[] spawnPoints;
-    public List<GameObject> enemiesList;
-
+    public GameObject[] enemiesList;
+    public int difficultyValue = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -25,18 +24,16 @@ public class EnemyManger : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R))
             RandomiseEnemies();
 
+        if (Input.GetKeyDown(KeyCode.G))
+            RandomiseEnemies();
+
         if (Input.GetKeyDown(KeyCode.C))
         {
-            for (int i = 0; i < enemiesList.Count; i++)
-            {
-                if (enemiesList[i] == isActiveAndEnabled)
-                    Destroy(enemiesList[i]);
-                else
-                    enemiesList.RemoveAt(i);
-            }
-
-            enemiesList.Clear();
+            for (int i = 0; i < enemiesList.Length; i++)
+                Destroy(enemiesList[i]);
         }
+
+        CountEnemies();
     }
 
     void SpawnEnemies()
@@ -44,19 +41,19 @@ public class EnemyManger : MonoBehaviour
         int randomNumX = Random.Range(0,enemies.Length);
         int randomNumY = Random.Range(0, spawnPoints.Length);
 
-        GameObject currentEnemy = Instantiate(enemies[randomNumX], spawnPoints[randomNumY].position,spawnPoints[randomNumY].rotation);
-        enemiesList.Add(currentEnemy);
+        GameObject enemy = Instantiate(enemies[randomNumX], spawnPoints[randomNumY].position,spawnPoints[randomNumY].rotation);
+        enemy.SendMessage("SetUpEnemy",difficultyValue);
     }
 
     void RandomiseEnemies()
     {
-        for (int i = 0; i < enemiesList.Count; i++)
-        {
-            if (enemiesList[i] == isActiveAndEnabled)
-                enemiesList[i].SendMessage("SetUpEnemy");
-            else
-                enemiesList.RemoveAt(i);
-        }
+        for (int i = 0; i < enemiesList.Length; i++)
+            enemiesList[i].SendMessage("SetUpEnemy",difficultyValue);
+    }
+
+    void CountEnemies()
+    {
+        enemiesList = GameObject.FindGameObjectsWithTag("Target");
     }
 }
 
