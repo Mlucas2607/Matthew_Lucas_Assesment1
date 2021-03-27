@@ -11,7 +11,7 @@ public class GameManager : Singleton<GameManager>
     
     void Start()
     {
-        timer = 5;
+        timer = 30;
         ToggleDifficulty();
     }
 

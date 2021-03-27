@@ -10,6 +10,9 @@ public class UIManager : Singleton<UIManager>
     public Text enemiesText;
     public Text difficultyText;
     public Text timerText;
+    public Text hintsText;
+
+    public Animator scoreAnim;
 
     public string gameDifficulty;
     public int countdownTimer;
@@ -20,12 +23,26 @@ public class UIManager : Singleton<UIManager>
 
     void Update()
     {
-        
-        countdownTimer = (int)GameManager.instance.timer;
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            if(hintsText.gameObject.activeSelf)
+                hintsText.gameObject.SetActive(false);
+            else
+                hintsText.gameObject.SetActive(true);
 
-        scoreText.text = "Score: " + GameManager.instance.score.ToString();
+        }
+       
+
+        countdownTimer = (int)GameManager.instance.timer;
+        timerText.text = "Time Remaining:" + countdownTimer;
+
         enemiesText.text = "Enemies Left: " + EnemyManger.instance.enemiesList.Length.ToString();
         difficultyText.text = "Diffculty: " + gameDifficulty;
-        timerText.text = "Time Remaining:" + countdownTimer;
+    }
+
+    void UpdateScore()
+    {
+        scoreText.text = "Score: " + GameManager.instance.score.ToString();
+        scoreAnim.SetTrigger("Score");
     }
 }
